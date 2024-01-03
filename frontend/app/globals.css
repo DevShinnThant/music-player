@@ -10,6 +10,6 @@
 
 @layer utilities {
   .max-width {
-    @apply mx-auto w-full max-w-7xl;
+    @apply m-auto;
   }
 }
