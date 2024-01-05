@@ -19,10 +19,12 @@ const config = {
     },
     extend: {
       colors: {
-        main: "#ECF2FD",
-        primary: "#FFFFFF",
-        active: "#FF7E3A",
-        secondary: "#2E3271",
+        main: "#12131A",
+        primary: "#15151E",
+        active: "#0C90EE",
+        secondary: "#1B1B25",
+        textPrimary: "#919693",
+        textSecondary: "#868688",
       },
       keyframes: {
         "accordion-down": {
