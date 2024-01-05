@@ -1,47 +1,43 @@
-import { ActiveNav } from "@/lib/hooks/useActiveNav";
 import { Navlink } from "@/lib/navlinks";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 interface Props {
   item: Navlink;
-  onClick: (data: ActiveNav) => void;
-  activeIndex: number;
+  onClick: (index: number) => void;
+  isActive: boolean;
+  index: number;
 }
 
-export default function SidebarItem({ item, onClick, activeIndex }: Props) {
+export default function SidebarItem({
+  item: { icon: Icon, name, link },
+  isActive,
+  index,
+  onClick,
+}: Props) {
   return (
-    <div key={item.slug} className="w-full flex flex-col gap-6 items-start">
-      <div className="text-secondary font-thin px-4">{item.title}</div>
-
-      <div className="relative w-full flex flex-col items-start gap-4">
-        {item.links.map(({ name, icon: Icon, linkIndex, link }) => (
-          <Link
-            onClick={() => {
-              onClick({
-                index: linkIndex,
-                section: item.slug,
-              });
-            }}
-            href={link}
-            key={linkIndex}
-            className="w-full px-4 py-2 hover:bg-gray-100 rounded-md flex items-center gap-3 cursor-pointer"
-          >
-            <Icon
-              size={20}
-              variant={activeIndex === linkIndex ? "Bold" : "Bulk"}
-              color={activeIndex === linkIndex ? "#FF7E3A" : "#2E3271"}
-              className="z-10"
-            />
-            <div
-              className="text-secondary z-10 text-sm font-thin"
-              style={{
-                color: activeIndex === linkIndex ? "#FF7E3A" : "#2E3271",
-              }}
-            >
-              {name}
-            </div>
-          </Link>
-        ))}
+    <div
+      onClick={() => onClick(index)}
+      className={cn(
+        `relative w-full p-2 pl-6 flex items-center gap-4  cursor-pointer`,
+        isActive
+          ? "before:absolute before:z-20 before:left-0  before:w-full before:h-full  before:border-l-[5px]  before:border-l-active"
+          : "border-none",
+        index == 3 ? "mt-8" : "mt-0"
+      )}
+    >
+      <Icon
+        variant="Outline"
+        size={20}
+        color={isActive ? "#0C90EE" : "#E2F4F3"}
+      />
+      <div
+        className={cn(
+          `text-sm`,
+          isActive ? "text-active font-medium" : "text-textSecondary"
+        )}
+      >
+        {name}
       </div>
     </div>
   );

@@ -1,9 +1,3 @@
-// API
-import Image from "next/image";
-
-// Logo
-import Logo from "@/public/soundcloud-logo.png";
-
 // Links
 import { navlinks } from "@/lib/navlinks";
 
@@ -12,45 +6,65 @@ import useActiveNav from "@/lib/hooks/useActiveNav";
 
 // Component
 import SidebarItem from "./SidebarItem";
+import { AddSquare, RecordCircle } from "iconsax-react";
 
 export default function Sidebar() {
-  const { activeNav, onHandleClick } = useActiveNav();
+  const { activeNavIndex, onHandleClick } = useActiveNav();
 
   return (
-    <div className="w-80 h-full px-3 py-5 flex justify-center bg-primary">
-      <div className="w-full flex flex-col items-center gap-12">
+    <div className="w-80 h-full py-5 flex justify-center bg-primary">
+      <div className="w-full flex flex-col items-center gap-16">
         {/* Logo */}
-        <div className="w-full flex p-4 justify-start items-center gap-4">
-          <Image src={Logo} alt="Sound Cloud" />
-          <div className="text-xl font-medium">Soundcloud</div>
+        <div className="relative w-full flex px-10 py-4 justify-start items-center gap-4">
+          <div className="absolute bottom-7 left-8 w-5 h-5 rounded-full bg-active" />
+          <div className="text-xl z-10 font-medium text-white tracking-wider">
+            Echo Music
+          </div>
         </div>
         {/* Logo */}
 
-        <div className="relative w-full flex flex-col items-center gap-12">
-          {navlinks.map((nav) => {
+        {/* Links */}
+        <div className="relative w-full flex flex-col items-center gap-6">
+          {navlinks.map((nav, index) => {
             return (
               <SidebarItem
-                key={nav.slug}
-                activeIndex={activeNav.index}
+                key={nav.link}
+                isActive={activeNavIndex === index}
                 item={nav}
+                index={index}
                 onClick={onHandleClick}
               />
             );
           })}
+        </div>
+        {/* Links */}
 
-          <div
-            style={{
-              top: `calc(${activeNav.index} * ${51}px)`,
-            }}
-            className="absolute w-full h-[38px] rounded-md bg-gray-100 transition-[top]"
-          >
-            <span
-              className={
-                "absolute right-0 w-[3px] h-7 mt-[4px] rounded-lg bg-active"
-              }
-            />
+        {/* Playlist */}
+        <div className="w-full px-7 flex flex-col items-center gap-5">
+          <div className="w-full flex items-center justify-between">
+            <div className="text-textSecondary text-[13px]">Playlists</div>
+            <AddSquare className="cursor-pointer" color="#0C90EE" />
+          </div>
+          <div className=" w-full flex flex-col items-start gap-4">
+            <div className="flex items-center gap-4 cursor-pointer">
+              <RecordCircle size={18} color="#919693" />
+              <div className="text-textPrimary text-sm">Rock & Roll</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <RecordCircle size={18} color="#919693" />
+              <div className="text-textPrimary text-sm">Best of 90s</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <RecordCircle size={18} color="#919693" />
+              <div className="text-textPrimary text-sm">Work Time</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <RecordCircle size={18} color="#919693" />
+              <div className="text-textPrimary text-sm">Exercise mode</div>
+            </div>
           </div>
         </div>
+        {/* Playlist */}
       </div>
     </div>
   );

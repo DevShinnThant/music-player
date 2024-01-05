@@ -1,85 +1,55 @@
 import {
+  Category,
   DiscountShape,
   Folder2,
   Heart,
   Home2,
   Icon,
+  MusicPlaylist,
   MusicSquare,
   Profile2User,
   SearchNormal,
   Setting,
+  User,
 } from "iconsax-react";
 
 export interface Navlink {
-  title: string;
-  slug: "menu" | "general";
-  links: {
-    icon: Icon;
-    name: string;
-    linkIndex: number;
-    link: string;
-  }[];
+  icon: Icon;
+  name: string;
+
+  link: string;
 }
 
 export const navlinks: Navlink[] = [
   {
-    title: "MENU",
-    slug: "menu",
-    links: [
-      {
-        icon: Home2,
-        name: "Home",
-        linkIndex: 0.96,
-        link: "/",
-      },
-      {
-        icon: SearchNormal,
-        name: "Search",
-        linkIndex: 1.96,
-        link: "/search",
-      },
-      {
-        icon: Heart,
-        name: "Likes",
-        linkIndex: 2.96,
-        link: "/likes",
-      },
-      {
-        icon: MusicSquare,
-        name: "Playlists",
-        linkIndex: 3.96,
-        link: "/playlists",
-      },
-      {
-        icon: Folder2,
-        name: "Albums",
-        linkIndex: 5,
-        link: "/albums",
-      },
-      {
-        icon: Profile2User,
-        name: "Following",
-        linkIndex: 6,
-        link: "/following",
-      },
-    ],
+    icon: Home2,
+    name: "Home",
+    link: "/",
   },
   {
-    title: "GENERAL",
-    slug: "general",
-    links: [
-      {
-        icon: Setting,
-        name: "Settings",
-        linkIndex: 8.62,
-        link: "/settings",
-      },
-      {
-        icon: DiscountShape,
-        name: "Subscription",
-        linkIndex: 9.62,
-        link: "/subscription",
-      },
-    ],
+    icon: Category,
+    name: "Generes",
+    link: "/generes",
+  },
+  {
+    icon: User,
+    name: "Artists",
+    link: "/artists",
+  },
+  {
+    icon: MusicPlaylist,
+    name: "Albums",
+    link: "/albums",
+  },
+  {
+    icon: Heart,
+    name: "Favourites",
+    link: "/favourites",
+  },
+
+  {
+    icon: MusicSquare,
+    name: "Recent Plays",
+    link: "/recent-plays",
   },
 ];
