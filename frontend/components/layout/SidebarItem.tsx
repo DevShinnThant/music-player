@@ -33,7 +33,7 @@ export default function SidebarItem({
       />
       <div
         className={cn(
-          `text-sm`,
+          `text-[13px]`,
           isActive ? "text-active font-medium" : "text-textSecondary"
         )}
       >
