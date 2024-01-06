@@ -768,6 +768,78 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiMusicMusic extends Schema.CollectionType {
+  collectionName: 'musics';
+  info: {
+    singularName: 'music';
+    pluralName: 'musics';
+    displayName: 'music';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    file: Attribute.Media;
+    name: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::music.music',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::music.music',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlaylistPlaylist extends Schema.CollectionType {
+  collectionName: 'playlists';
+  info: {
+    singularName: 'playlist';
+    pluralName: 'playlists';
+    displayName: 'Playlist';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    user: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToOne',
+      'admin::user'
+    >;
+    music: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToMany',
+      'api::music.music'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -786,6 +858,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::music.music': ApiMusicMusic;
+      'api::playlist.playlist': ApiPlaylistPlaylist;
     }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "musics",
+  "info": {
+    "singularName": "music",
+    "pluralName": "musics",
+    "displayName": "music"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "file": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "name": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}
