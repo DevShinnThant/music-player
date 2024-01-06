@@ -17,6 +17,7 @@ export default function Playbar() {
         <div className="col-span-3">
           <div className="flex h-full gap-5 items-center justify-start px-5">
             <Image
+              priority
               width={64}
               height={64}
               className="rounded-lg"
@@ -60,7 +61,7 @@ export default function Playbar() {
         <div className="col-span-3 p-3 flex items-center justify-center">
           <div className="w-full flex items-center justify-end gap-3">
             <VolumeHigh size={18} color="white" />
-            <Slider className=" w-3/6" />
+            <Slider className="w-3/6" />
           </div>
         </div>
       </div>
