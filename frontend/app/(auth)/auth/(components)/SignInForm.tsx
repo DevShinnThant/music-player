@@ -16,15 +16,28 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const formSchema = z.object({
-  email: z.string().min(2).max(50),
-  password: z.string().min(2).max(50),
+  identifier: z
+    .string()
+    .min(12, {
+      message: "Please enter valid email.",
+    })
+    .email({
+      message: "Email is not valid.",
+    }),
+
+  password: z
+    .string()
+    .min(5, {
+      message: "Password must be at least 5 characters.",
+    })
+    .max(50),
 });
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -43,13 +56,13 @@ export default function SignInForm() {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="identifier"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-xs text-gray-600">Email</FormLabel>
               <FormControl>
                 <Input
-                  className="border-gray-500"
+                  className="border-gray-500  placeholder:text-xs text-xs"
                   placeholder="Enter Email Address"
                   {...field}
                 />
@@ -64,10 +77,10 @@ export default function SignInForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-xs text-gray-600">Password</FormLabel>
               <FormControl>
                 <Input
-                  className="border-gray-500"
+                  className="border-gray-500 placeholder:text-xs text-xs"
                   placeholder="Enter Password"
                   {...field}
                 />
