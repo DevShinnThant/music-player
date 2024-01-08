@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
-import Provider from "./provider";
-import ParentLayout from "@/components/layout/ParentLayout";
+import "../globals.css";
 
 const poppins = Poppins({
   style: "normal",
@@ -22,10 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        <Provider>
-          <ParentLayout>{children}</ParentLayout>
-        </Provider>
+      <body
+        className={`${poppins.className} max-width h-screen flex items-center justify-center bg-main`}
+      >
+        <div className="w-1/3 bg-gray-300 shadow-sm rounded-sm p-6">
+          {children}
+        </div>
       </body>
     </html>
   );
