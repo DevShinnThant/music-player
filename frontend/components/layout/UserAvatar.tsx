@@ -1,6 +1,9 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -9,9 +12,23 @@ import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { ArrowDown2, ArrowUp2 } from "iconsax-react";
+import { useGetCurrentUser } from "@/lib/store/server/auth/queries";
+import { strapi } from "@/lib/store/server/strapi";
+import { useRouter } from "next/navigation";
 
 export default function UserAvatar() {
   const [opened, setOpened] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  // Queries
+  const { data } = useGetCurrentUser();
+
+  const handleLogout = () => {
+    strapi.logout();
+    router.push("/auth/sign-in");
+  };
+
   return (
     <DropdownMenu open={opened} onOpenChange={() => setOpened(!opened)}>
       <DropdownMenuTrigger asChild>
@@ -20,7 +37,7 @@ export default function UserAvatar() {
           variant="outline"
           onClick={() => setOpened(!opened)}
         >
-          <div className=" flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <Avatar className="w-7 h-7 p-0">
               <AvatarImage
                 src="https://github.com/shadcn.png"
@@ -28,7 +45,7 @@ export default function UserAvatar() {
               />
               <AvatarFallback>S</AvatarFallback>
             </Avatar>
-            <div className="text-white text-xs">Taylor</div>
+            <div className="text-white text-xs">{data?.username}</div>
           </div>
           {opened ? (
             <ArrowDown2 size={12} color="white" />
@@ -37,8 +54,13 @@ export default function UserAvatar() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-44">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuItem>
+          <Button onClick={handleLogout} className="w-full" size="sm">
+            Logout
+          </Button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
