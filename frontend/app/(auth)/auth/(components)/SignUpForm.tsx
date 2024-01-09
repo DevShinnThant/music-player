@@ -14,42 +14,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
-const formSchema = z.object({
-  username: z.string().min(5, {
-    message: "Username must be at least 5 characters.",
-  }),
-  identifier: z
-    .string()
-    .min(12, {
-      message: "Please enter valid email.",
-    })
-    .email({
-      message: "Email is not valid.",
-    }),
-
-  password: z
-    .string()
-    .min(5, {
-      message: "Password must be at least 5 characters.",
-    })
-    .max(50),
-});
+import { signUpFormSchema } from "@/lib/store/server/auth/schema";
+import { useAuthRegister } from "@/lib/store/server/auth/mutations";
 
 export default function SignUpForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      username: "",
-      identifier: "",
       password: "",
+      username: "",
+      email: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  // Mutations
+  const signUpMutator = useAuthRegister();
+
+  function onSubmit(values: z.infer<typeof signUpFormSchema>) {
+    signUpMutator.mutate(values, {
+      onSuccess: () => {
+        form.reset();
+      },
+    });
   }
 
   return (
@@ -66,8 +52,9 @@ export default function SignUpForm() {
               <FormLabel className="text-xs text-gray-600">Username</FormLabel>
               <FormControl>
                 <Input
+                  type="text"
                   className="border-gray-500  placeholder:text-xs text-xs"
-                  placeholder="Enter Email Address"
+                  placeholder="Enter Username"
                   {...field}
                 />
               </FormControl>
@@ -78,7 +65,7 @@ export default function SignUpForm() {
         />
         <FormField
           control={form.control}
-          name="identifier"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-xs text-gray-600">Email</FormLabel>
@@ -102,6 +89,7 @@ export default function SignUpForm() {
               <FormLabel className="text-xs text-gray-600">Password</FormLabel>
               <FormControl>
                 <Input
+                  type="password"
                   className="border-gray-500 placeholder:text-xs text-xs"
                   placeholder="Enter Password"
                   {...field}
@@ -113,7 +101,11 @@ export default function SignUpForm() {
           )}
         />
 
-        <Button className="w-full py-5 bg-blue-600 shadow-md" type="submit">
+        <Button
+          loading={signUpMutator.isPending}
+          className="w-full py-5 bg-blue-600 shadow-md"
+          type="submit"
+        >
           Submit
         </Button>
         <div className="text-xs tracking-wide text-center">

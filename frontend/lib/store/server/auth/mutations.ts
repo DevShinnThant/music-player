@@ -4,21 +4,32 @@ import {
   StrapiAuthenticationData,
   StrapiRegistrationData,
 } from "@/lib/types/strapi";
+import { useToast } from "@/components/ui/use-toast";
 
 export const useAuthRegister = () => {
+  const { toast } = useToast();
   return useMutation({
     mutationFn: (payload: StrapiRegistrationData) => strapi.register(payload),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      toast({
+        title: "success",
+        color: "green",
+        description: "Sign Up Successfully.",
+      });
     },
   });
 };
 
 export const useAuthLogin = () => {
+  const { toast } = useToast();
   return useMutation({
     mutationFn: (payload: StrapiAuthenticationData) => strapi.login(payload),
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      toast({
+        title: "success",
+        color: "green",
+        description: "Sign In Successfully.",
+      });
     },
   });
 };
