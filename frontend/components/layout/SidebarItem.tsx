@@ -16,7 +16,8 @@ export default function SidebarItem({
   onClick,
 }: Props) {
   return (
-    <div
+    <Link
+      href={link}
       onClick={() => onClick(index)}
       className={cn(
         `relative w-full p-2 pl-6 flex items-center gap-4  cursor-pointer`,
@@ -39,6 +40,6 @@ export default function SidebarItem({
       >
         {name}
       </div>
-    </div>
+    </Link>
   );
 }
