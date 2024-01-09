@@ -12,10 +12,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
 import { signInFormSchema } from "@/lib/store/server/auth/schema";
 import { useAuthLogin } from "@/lib/store/server/auth/mutations";
+import { ButtonWithLoading } from "@/components/ui/button";
 
 export default function SignInForm() {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -81,13 +82,13 @@ export default function SignInForm() {
           )}
         />
 
-        <Button
+        <ButtonWithLoading
           loading={loginMutator.isPending}
           className="w-full py-5 bg-blue-600 shadow-md"
           type="submit"
         >
           Submit
-        </Button>
+        </ButtonWithLoading>
         <div className="text-xs tracking-wide text-center">
           Don't have an account?{" "}
           <Link href="/auth/sign-up" className="ml-2 underline">

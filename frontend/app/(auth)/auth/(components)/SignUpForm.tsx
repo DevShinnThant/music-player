@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { ButtonWithLoading } from "@/components/ui/button";
 import Link from "next/link";
 import { signUpFormSchema } from "@/lib/store/server/auth/schema";
 import { useAuthRegister } from "@/lib/store/server/auth/mutations";
@@ -101,13 +101,13 @@ export default function SignUpForm() {
           )}
         />
 
-        <Button
+        <ButtonWithLoading
           loading={signUpMutator.isPending}
           className="w-full py-5 bg-blue-600 shadow-md"
           type="submit"
         >
           Submit
-        </Button>
+        </ButtonWithLoading>
         <div className="text-xs tracking-wide text-center">
           Already have an account?{" "}
           <Link href="/auth/sign-in" className="ml-2 underline">
