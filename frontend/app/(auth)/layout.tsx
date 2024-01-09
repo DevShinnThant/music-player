@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
+import Provider from "../provider";
 
 const poppins = Poppins({
   style: "normal",
@@ -23,9 +24,11 @@ export default function RootLayout({
       <body
         className={`${poppins.className} max-width h-screen flex items-center justify-center bg-main`}
       >
-        <div className="w-1/3 bg-white shadow-sm rounded-md py-6 px-8">
-          {children}
-        </div>
+        <Provider>
+          <div className="w-1/3 bg-white shadow-sm rounded-md py-6 px-8">
+            {children}
+          </div>
+        </Provider>
       </body>
     </html>
   );
