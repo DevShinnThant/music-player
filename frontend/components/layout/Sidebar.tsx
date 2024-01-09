@@ -1,3 +1,4 @@
+"use client";
 // Links
 import { navlinks } from "@/lib/navlinks";
 

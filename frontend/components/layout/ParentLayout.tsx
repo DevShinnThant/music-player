@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import Sidebar from "./Sidebar";
 import TopLayout from "./TopLayout";
 import Playbar from "./PlayBar";
