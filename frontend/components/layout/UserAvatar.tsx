@@ -43,7 +43,7 @@ export default function UserAvatar() {
                 src="https://github.com/shadcn.png"
                 alt="user image"
               />
-              <AvatarFallback>S</AvatarFallback>
+              <AvatarFallback></AvatarFallback>
             </Avatar>
             <div className="text-white text-xs">{data?.username}</div>
           </div>
