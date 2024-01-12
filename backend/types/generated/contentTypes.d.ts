@@ -774,6 +774,7 @@ export interface ApiMusicMusic extends Schema.CollectionType {
     singularName: 'music';
     pluralName: 'musics';
     displayName: 'music';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -781,6 +782,7 @@ export interface ApiMusicMusic extends Schema.CollectionType {
   attributes: {
     file: Attribute.Media;
     name: Attribute.String & Attribute.Unique;
+    image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

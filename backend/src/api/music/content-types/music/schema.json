@@ -4,7 +4,8 @@
   "info": {
     "singularName": "music",
     "pluralName": "musics",
-    "displayName": "music"
+    "displayName": "music",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,6 +13,21 @@
   "pluginOptions": {},
   "attributes": {
     "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "image": {
       "allowedTypes": [
         "images",
         "files",
@@ -20,10 +36,6 @@
       ],
       "type": "media",
       "multiple": false
-    },
-    "name": {
-      "type": "string",
-      "unique": true
     }
   }
 }
