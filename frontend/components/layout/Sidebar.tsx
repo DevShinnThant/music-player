@@ -8,6 +8,7 @@ import useActiveNav from "@/lib/hooks/useActiveNav";
 // Component
 import SidebarItem from "./SidebarItem";
 import { AddSquare, RecordCircle } from "iconsax-react";
+import Playlist from "./Playlist";
 
 export default function Sidebar() {
   const { activeNavIndex, onHandleClick } = useActiveNav();
@@ -42,10 +43,7 @@ export default function Sidebar() {
 
         {/* Playlist */}
         <div className="w-full px-7 flex flex-col items-center gap-5">
-          <div className="w-full flex items-center justify-between">
-            <div className="text-textSecondary text-[12px]">Playlists</div>
-            <AddSquare className="cursor-pointer" color="#0C90EE" />
-          </div>
+          <Playlist />
           <div className=" w-full flex flex-col items-start gap-4">
             <div className="flex items-center gap-4 cursor-pointer">
               <RecordCircle size={18} color="#919693" />
