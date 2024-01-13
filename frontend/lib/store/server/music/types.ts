@@ -3,3 +3,11 @@ export interface SelectMusicOptions {
   label: string;
   url: string;
 }
+
+export interface SelectMusic {
+  id: string;
+  name: string;
+  artist: string;
+  image: string;
+  song: string;
+}

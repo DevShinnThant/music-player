@@ -42,7 +42,6 @@ export const albumDataSchema = z.object({
       }),
     }),
   }),
-  music: z.object({}),
 });
 
 export const albumApiResSchema = ApiResponseValidator({
