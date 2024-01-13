@@ -820,6 +820,7 @@ export interface ApiMusicMusic extends Schema.CollectionType {
     file: Attribute.Media;
     name: Attribute.String & Attribute.Unique;
     image: Attribute.Media;
+    artist: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
