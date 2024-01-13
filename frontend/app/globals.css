@@ -17,4 +17,7 @@
   .max-width {
     @apply m-auto;
   }
+  .navbar-width {
+    @apply w-[235.38px];
+  }
 }

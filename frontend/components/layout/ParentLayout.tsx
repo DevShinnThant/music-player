@@ -8,11 +8,11 @@ export default function ParentLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-width h-screen flex items-center">
+    <div className="max-width overflow-auto h-screen flex items-center">
       <Sidebar />
       <div className="relative bg-main w-full h-full flex flex-col">
         <TopLayout />
-        <div className="px-7 flex-1 overflow-y-scroll">{children}</div>
+        <div className="px-7 h-[calc(100vh_-_100px)]">{children}</div>
         <Playbar />
       </div>
     </div>
