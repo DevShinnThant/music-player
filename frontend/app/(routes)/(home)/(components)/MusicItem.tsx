@@ -1,22 +1,27 @@
 "use client";
 
-import { useMusicStore } from "@/lib/store/client/music";
+import SoundWaveIcon from "@/components/ui/sound-wave-icon";
+
 import { SelectMusic } from "@/lib/store/server/music/types";
-import { PauseCircle, PlayCircle } from "iconsax-react";
+import { cn } from "@/lib/utils";
+import { Play } from "iconsax-react";
 import Image from "next/image";
-import { useState } from "react";
 
 interface Props {
   item: SelectMusic;
+  activeIndex: string;
+  onPlayHandler: (music: SelectMusic) => void;
 }
 
-export default function MusicItem({ item }: Props) {
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  const { setCurrentMusic } = useMusicStore();
-
+export default function MusicItem({ item, activeIndex, onPlayHandler }: Props) {
   return (
-    <div className="w-full pr-6 flex items-center justify-between">
+    <div
+      onClick={() => onPlayHandler(item)}
+      className={cn(
+        `w-full pr-6 rounded-md flex items-center justify-between cursor-pointer hover:bg-gray-700 hover:bg-opacity-20`,
+        activeIndex === item.id && "bg-gray-700 bg-opacity-20"
+      )}
+    >
       <div className="flex gap-4 items-center">
         <Image
           width={50}
@@ -30,20 +35,11 @@ export default function MusicItem({ item }: Props) {
           <div className="text-xs text-gray-400">{item.artist}</div>
         </div>
       </div>
-
-      <div
-        className="cursor-pointer"
-        onClick={() => {
-          setCurrentMusic(item);
-          setIsActive(!isActive);
-        }}
-      >
-        {isActive ? (
-          <PauseCircle color="white" size={20} />
-        ) : (
-          <PlayCircle color="white" size={20} />
-        )}
-      </div>
+      {activeIndex === item.id ? (
+        <SoundWaveIcon />
+      ) : (
+        <Play color="gray" size={18} />
+      )}
     </div>
   );
 }
