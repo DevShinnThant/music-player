@@ -20,8 +20,10 @@ export default function RecentPlays({ data }: Props) {
             src={album.cover}
             alt={album.name}
           />
-          <div className="text-white text-sm">{album.name}</div>
-          <div className="text-xs text-gray-500">{album.artist}</div>
+          <div className="w-full flex flex-col item-center">
+            <div className="text-white text-sm m-auto">{album.name}</div>
+            <div className="text-xs text-gray-500 m-auto">{album.artist}</div>
+          </div>
         </div>
       ))}
     </div>
