@@ -67,6 +67,11 @@
   width: 5px;
 }
 
+.scroll-hidden::-webkit-scrollbar {
+  opacity: 0;
+  display: none;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparent;
