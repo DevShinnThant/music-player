@@ -7,7 +7,7 @@ const API_URL = process.env.NEXT_PUBLIC_DATABASE_URL;
 export const getAlbumns = async () => {
   const response = await axios.get(`${API_URL}/api/albums?populate=*`);
 
-  const modifedData = albumSelector(response.data);
+  const modifedData = albumSelector(albumApiResSchema.parse(response.data));
 
   return modifedData;
 };
