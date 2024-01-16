@@ -16,11 +16,29 @@ interface Props {
   currentTime: number;
   duration: number;
   onTrackChange: (value: number) => void;
+  onNext: () => void;
+  onPrevious: () => void;
+  isRepeated: boolean;
+  onRepeatedToggle: () => void;
+  isShuffleMode: boolean;
+  onShuffleToggle: () => void;
 }
 
 export const ControlBar = forwardRef<HTMLAudioElement, Props>(
   (
-    { isPlaying, onTogglePlay, currentTime, duration, onTrackChange }: Props,
+    {
+      isPlaying,
+      onTogglePlay,
+      currentTime,
+      duration,
+      onTrackChange,
+      onNext,
+      onPrevious,
+      isRepeated,
+      onRepeatedToggle,
+      isShuffleMode,
+      onShuffleToggle,
+    }: Props,
     ref
   ) => {
     return (
@@ -28,8 +46,20 @@ export const ControlBar = forwardRef<HTMLAudioElement, Props>(
         <audio hidden ref={ref} />
         <div className="flex h-full flex-col gap-5 items-center justify-center">
           <div className="flex items-center gap-6">
-            <Shuffle className="cursor-pointer" size={20} color="gray" />
-            <Previous className="cursor-pointer" size={20} color="#919693" />
+            <Shuffle
+              onClick={onShuffleToggle}
+              className="cursor-pointer"
+              size={20}
+              color={isShuffleMode ? "white" : "#919693"}
+            />
+
+            <Previous
+              onClick={onPrevious}
+              className="cursor-pointer"
+              size={20}
+              color="#919693"
+            />
+
             <div onClick={onTogglePlay} className="cursor-pointer">
               {isPlaying ? (
                 <PauseCircle color="white" size={36} variant="Bulk" />
@@ -37,8 +67,20 @@ export const ControlBar = forwardRef<HTMLAudioElement, Props>(
                 <PlayCircle color="white" size={36} variant="Bulk" />
               )}
             </div>
-            <Next className="cursor-pointer" size={20} color="#919693" />
-            <RepeateOne className="cursor-pointer" size={20} color="#919693" />
+            <Next
+              onClick={() => {
+                onNext();
+              }}
+              className="cursor-pointer"
+              size={20}
+              color="#919693"
+            />
+            <RepeateOne
+              onClick={onRepeatedToggle}
+              className="cursor-pointer"
+              size={20}
+              color={isRepeated ? "white" : "#919693"}
+            />
           </div>
           <div className="w-full flex items-center justify-center gap-3">
             <div className="text-xs text-textSecondary">

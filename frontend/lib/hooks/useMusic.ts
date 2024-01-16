@@ -1,8 +1,12 @@
+import { usePrevious } from "@/lib/hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
 import { useMusicStore } from "../store/client/music";
 
 export default function useMusic() {
-  const { currentMusic } = useMusicStore();
+  const { currentMusicIndex, musics, setCurrentMusic } = useMusicStore();
+
+  const currentMusic = musics[currentMusicIndex!];
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const intervalRef = useRef<any>({});
@@ -12,6 +16,8 @@ export default function useMusic() {
 
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(1);
+  const [isRepeated, setIsRepeated] = useState<boolean>(false);
+  const [isShuffleMode, setIsShuffleMode] = useState<boolean>(false);
 
   // Destructure for conciseness
   const duration = audioRef.current?.duration || 0;
@@ -32,6 +38,52 @@ export default function useMusic() {
     audioRef.current.volume = value;
   };
 
+  const onNextChange = () => {
+    if (currentMusicIndex === null || musics.length - 1 === currentMusicIndex)
+      return;
+
+    setCurrentMusic(currentMusicIndex + 1);
+  };
+
+  const onPreviousChange = () => {
+    if (!currentMusicIndex) return;
+    setCurrentMusic(currentMusicIndex - 1);
+  };
+
+  const onRepeatedToggle = () => {
+    setIsRepeated((prev) => !prev);
+  };
+
+  const onShuffleToggle = () => {
+    setIsShuffleMode((prev) => !prev);
+  };
+
+  const nextRandomSong = () => {
+    const randomIndex = Math.floor(Math.random() * musics.length + 1);
+    console.log(randomIndex);
+
+    setCurrentMusic(randomIndex);
+  };
+
+  const previousRepeated = usePrevious(isRepeated);
+  const previousShuffleMode = usePrevious(isShuffleMode);
+
+  useEffect(() => {
+    if (!previousRepeated && !isRepeated) {
+      return;
+    }
+    clearInterval(intervalRef.current);
+    startTimer();
+  }, [isRepeated]);
+
+  useEffect(() => {
+    if (!previousShuffleMode && !isShuffleMode) {
+      return;
+    }
+    clearInterval(intervalRef.current);
+    startTimer();
+  }, [isShuffleMode]);
+
   const startTimer = () => {
     if (intervalRef.current && audioRef.current) {
       // Clear any timers already running
@@ -39,9 +91,17 @@ export default function useMusic() {
 
       intervalRef.current = setInterval(() => {
         if (audioRef.current?.ended) {
-          // toNextTrack();
+          if (isRepeated) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
+            return;
+          }
+          if (isShuffleMode) {
+            nextRandomSong();
+          } else {
+            onNextChange();
+          }
         } else {
-          // setTrackProgress(audioRef.current.currentTime);
           setCurrentTime(audioRef.current?.currentTime || 0);
         }
       }, 1000);
@@ -60,14 +120,15 @@ export default function useMusic() {
     }
   }, [isPlaying]);
 
+  // Pause and clean up on unmount
   useEffect(() => {
-    // Pause and clean up on unmount
     return () => {
       audioRef.current?.pause();
       clearInterval(intervalRef.current);
     };
   }, []);
 
+  // Pause current song, Set new song and Play new song everytime song changes
   useEffect(() => {
     if (!audioRef.current) return;
     audioRef.current.pause();
@@ -94,5 +155,11 @@ export default function useMusic() {
     onVolumeChange,
     onTogglePlay,
     isPlaying,
+    onNextChange,
+    onPreviousChange,
+    onRepeatedToggle,
+    isRepeated,
+    isShuffleMode,
+    onShuffleToggle,
   };
 }

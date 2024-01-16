@@ -16,6 +16,12 @@ export default function Playbar() {
     onTogglePlay,
     onVolumeChange,
     onTrackChange,
+    onNextChange,
+    onPreviousChange,
+    onRepeatedToggle,
+    isRepeated,
+    isShuffleMode,
+    onShuffleToggle,
   } = useMusic();
 
   return (
@@ -32,6 +38,12 @@ export default function Playbar() {
             onTrackChange={onTrackChange}
             onTogglePlay={onTogglePlay}
             isPlaying={isPlaying}
+            onNext={onNextChange}
+            onPrevious={onPreviousChange}
+            isRepeated={isRepeated}
+            onRepeatedToggle={onRepeatedToggle}
+            isShuffleMode={isShuffleMode}
+            onShuffleToggle={onShuffleToggle}
           />
         </div>
         <div className="col-span-3 p-3 flex items-center justify-center">

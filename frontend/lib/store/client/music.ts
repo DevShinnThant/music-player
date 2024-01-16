@@ -4,27 +4,32 @@ import { SelectMusic } from "../server/music/types";
 
 interface MusicStore {
   musics: SelectMusic[];
-  currentMusic?: SelectMusic;
-  setCurrentMusic: (music: SelectMusic) => void;
+  insertMusics: (musics: SelectMusic[]) => void;
+  currentMusicIndex: number | null;
+  setCurrentMusic: (index: number) => void;
 }
 
 const musicStore = create<MusicStore>((set) => ({
   musics: [],
-  currentMusic: undefined,
-  setCurrentMusic: (music) => set((state) => ({ currentMusic: music })),
+  insertMusics: (musics) => set((state) => ({ musics })),
+  currentMusicIndex: null,
+  setCurrentMusic: (index) => set((state) => ({ currentMusicIndex: index })),
 }));
 
 export const useMusicStore = () => {
-  const { musics, currentMusic, setCurrentMusic } = musicStore(
-    useShallow((state) => ({
-      musics: state.musics,
-      currentMusic: state.currentMusic,
-      setCurrentMusic: state.setCurrentMusic,
-    }))
-  );
+  const { musics, insertMusics, currentMusicIndex, setCurrentMusic } =
+    musicStore(
+      useShallow((state) => ({
+        musics: state.musics,
+        insertMusics: state.insertMusics,
+        currentMusicIndex: state.currentMusicIndex,
+        setCurrentMusic: state.setCurrentMusic,
+      }))
+    );
   return {
     musics,
-    currentMusic,
+    insertMusics,
+    currentMusicIndex,
     setCurrentMusic,
   };
 };
