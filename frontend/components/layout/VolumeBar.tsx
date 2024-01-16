@@ -17,16 +17,8 @@ export default function VolumeBar({ volume, onVolumeChange }: Props) {
         step={0.1}
         value={[volume]}
         onValueChange={(e) => onVolumeChange(e[0])}
-        className="w-3/6"
+        className="w-3/6 bg-gray-500 h-[2px] rounded-lg"
       />
     </div>
   );
 }
-
-// (e) => {
-//   if (!audioRef.current) return;
-//   setVolume(e[0]);
-
-//   audioRef.current.volume = e[0];
-//   console.log(audioRef.current.volume);
-// };

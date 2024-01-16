@@ -94,7 +94,7 @@ export const ControlBar = forwardRef<HTMLAudioElement, Props>(
               onValueChange={(e) => {
                 onTrackChange(e[0]);
               }}
-              className="w-3/6"
+              className="w-3/6 bg-gray-500 h-[2px] rounded-lg"
             />
 
             <div className="text-xs text-textSecondary">
