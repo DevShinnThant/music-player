@@ -15,7 +15,7 @@ export default function useMusic() {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const [currentTime, setCurrentTime] = useState<number>(0);
-  const [volume, setVolume] = useState<number>(1);
+  const [volume, setVolume] = useState<number>(0.3);
   const [isRepeated, setIsRepeated] = useState<boolean>(false);
   const [isShuffleMode, setIsShuffleMode] = useState<boolean>(false);
 
@@ -68,6 +68,7 @@ export default function useMusic() {
   const previousRepeated = usePrevious(isRepeated);
   const previousShuffleMode = usePrevious(isShuffleMode);
 
+  // Prevent Initial Call
   useEffect(() => {
     if (!previousRepeated && !isRepeated) {
       return;
@@ -76,6 +77,7 @@ export default function useMusic() {
     startTimer();
   }, [isRepeated]);
 
+  // Prevent Initial Call
   useEffect(() => {
     if (!previousShuffleMode && !isShuffleMode) {
       return;
