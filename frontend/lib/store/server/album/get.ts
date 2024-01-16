@@ -5,7 +5,9 @@ import { albumSelector } from "./selector";
 const API_URL = process.env.NEXT_PUBLIC_DATABASE_URL;
 
 export const getAlbumns = async () => {
-  const response = await axios.get(`${API_URL}/api/albums?populate=*`);
+  const response = await axios.get(
+    `${API_URL}/api/albums?pagination[page]=1&pagination[pageSize]=5&populate=*`
+  );
 
   const modifedData = albumSelector(albumApiResSchema.parse(response.data));
 
