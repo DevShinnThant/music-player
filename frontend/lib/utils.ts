@@ -11,3 +11,21 @@ export function formatDuration(durationSeconds: number) {
   const formattedSeconds = seconds.toString().padStart(2, "0");
   return `${minutes}:${formattedSeconds}`;
 }
+
+export function formatTimeHMS(milliseconds: number) {
+  // Convert milliseconds to seconds
+  let seconds = Math.floor(milliseconds / 1000);
+
+  // Calculate hours, minutes, and remaining seconds
+  let hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+
+  // Format the result
+  let formattedResult = `${hours ? hours + " hr" : ""} ${
+    minutes ? minutes + " min" : ""
+  } ${seconds ? seconds + " sec" : ""}`;
+
+  return formattedResult;
+}
