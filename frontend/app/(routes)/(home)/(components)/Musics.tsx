@@ -27,7 +27,7 @@ export default function Musics({ data }: Props) {
       <div className="text-white text-lg font-semibold tracking-wide">
         Songs
       </div>
-      <div className="w-full pb-24  pr-3 flex flex-col items-start gap-4 overflow-y-scroll scroll-hidden">
+      <div className="w-full pb-28  pr-3 flex flex-col items-start gap-4 overflow-y-scroll scroll-hidden">
         {data.map((item) => {
           return (
             <MusicItem
