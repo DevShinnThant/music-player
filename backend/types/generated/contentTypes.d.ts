@@ -862,6 +862,9 @@ export interface ApiPlaylistPlaylist extends Schema.CollectionType {
       'oneToMany',
       'api::music.music'
     >;
+    image: Attribute.Media;
+    song_count: Attribute.Integer;
+    duration: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

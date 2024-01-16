@@ -24,6 +24,23 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::music.music"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "song_count": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "float"
     }
   }
 }
