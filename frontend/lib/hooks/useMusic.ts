@@ -3,16 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { useMusicStore } from "../store/client/music";
 
 export default function useMusic() {
-  const { currentMusicIndex, musics, setCurrentMusic } = useMusicStore();
+  const { currentMusicId, musics, setCurrentMusic, isPlaying, togglePlay } =
+    useMusicStore();
 
-  const currentMusic = musics[currentMusicIndex!];
+  const currentMusic = musics.find((music) => music.id === currentMusicId);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const intervalRef = useRef<any>({});
   const isReady = useRef<boolean>(false);
-
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.3);
@@ -28,10 +27,6 @@ export default function useMusic() {
     setCurrentTime(value);
   };
 
-  const onTogglePlay = () => {
-    setIsPlaying((prev) => !prev);
-  };
-
   const onVolumeChange = (value: number) => {
     if (!audioRef.current) return;
     setVolume(value);
@@ -39,15 +34,25 @@ export default function useMusic() {
   };
 
   const onNextChange = () => {
-    if (currentMusicIndex === null || musics.length - 1 === currentMusicIndex)
+    const indexOfCurrentMusic = musics.findIndex(
+      (music) => music.id === currentMusicId
+    );
+    if (currentMusicId === null || musics.length - 1 === indexOfCurrentMusic)
       return;
 
-    setCurrentMusic(currentMusicIndex + 1);
+    const nextSongId = musics[indexOfCurrentMusic + 1].id;
+
+    setCurrentMusic(nextSongId);
   };
 
   const onPreviousChange = () => {
-    if (!currentMusicIndex) return;
-    setCurrentMusic(currentMusicIndex - 1);
+    const indexOfCurrentMusic = musics.findIndex(
+      (music) => music.id === currentMusicId
+    );
+    if (currentMusicId === null || indexOfCurrentMusic === 0) return;
+
+    const previousSongId = musics[indexOfCurrentMusic - 1].id;
+    setCurrentMusic(previousSongId);
   };
 
   const onRepeatedToggle = () => {
@@ -110,7 +115,9 @@ export default function useMusic() {
     }
   };
 
+  const previousSongId = usePrevious(currentMusicId);
   useEffect(() => {
+    if (!previousSongId) return;
     if (!audioRef.current) return;
 
     if (isPlaying) {
@@ -131,8 +138,10 @@ export default function useMusic() {
   }, []);
 
   // Pause current song, Set new song and Play new song everytime song changes
+
   useEffect(() => {
     if (!audioRef.current) return;
+
     audioRef.current.pause();
 
     audioRef.current = new Audio(currentMusic?.song);
@@ -140,12 +149,12 @@ export default function useMusic() {
 
     if (isReady.current) {
       audioRef.current.play();
-      setIsPlaying(true);
+      // play();
       startTimer();
     } else {
       isReady.current = true;
     }
-  }, [currentMusic]);
+  }, [currentMusic?.id]);
 
   return {
     audioRef,
@@ -155,7 +164,6 @@ export default function useMusic() {
     volume,
     onTrackChange,
     onVolumeChange,
-    onTogglePlay,
     isPlaying,
     onNextChange,
     onPreviousChange,
@@ -163,5 +171,6 @@ export default function useMusic() {
     isRepeated,
     isShuffleMode,
     onShuffleToggle,
+    togglePlay,
   };
 }

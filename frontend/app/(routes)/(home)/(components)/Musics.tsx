@@ -2,7 +2,7 @@
 
 import { SelectMusic } from "@/lib/store/server/music/types";
 import MusicItem from "./MusicItem";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMusicStore } from "@/lib/store/client/music";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function Musics({ data }: Props) {
-  const { setCurrentMusic, insertMusics, currentMusicIndex } = useMusicStore();
+  const { setCurrentMusic, insertMusics, currentMusicId } = useMusicStore();
 
   const onPlayHandler = (index: number) => {
     setCurrentMusic(index);
@@ -33,7 +33,7 @@ export default function Musics({ data }: Props) {
             <MusicItem
               key={item.id}
               item={item}
-              activeIndex={currentMusicIndex!}
+              active={currentMusicId === item.id}
               onPlayHandler={onPlayHandler}
             />
           );

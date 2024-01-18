@@ -1,24 +1,45 @@
-import { getAlbumns } from "@/lib/store/server/album/get";
+import { getAlbums } from "@/lib/store/server/album/get";
 import RecentPlays from "./(components)/RecentPlays";
 import Link from "next/link";
+import Musics from "./(components)/Musics";
+import { getMusics } from "@/lib/store/server/music/get";
+import { Suspense } from "react";
+import Image from "next/image";
+import { getPlaylists } from "@/lib/store/server/playlist/get";
+import Playlists from "./(components)/Playlists";
 
 export default async function Home() {
-  const data = await getAlbumns();
+  const albums = await getAlbums();
+  const songs = await getMusics();
+  const playlists = await getPlaylists();
+
   return (
-    <div className="flex flex-col items-start w-full h-full">
+    <div className="w-full h-full flex flex-col gap-5 items-start">
       {/* Recent Play Albums */}
-      <div className="w-full flex flex-col gap-10 items-start justify-start">
+      <div className="w-full flex flex-col gap-3 items-start justify-start">
         <div className="w-full flex items-center justify-between">
           <div className="text-white text-xl font-semibold tracking-wide">
-            Recently Plays
+            Albums
           </div>
           <Link href="/recent-plays" className="text-gray-300 text-sm">
             See all
           </Link>
         </div>
-        <RecentPlays data={data} />
+        <Suspense fallback={<div>Loadinggggg</div>}>
+          <RecentPlays data={albums} />
+        </Suspense>
       </div>
       {/* Recent Play Albums */}
+
+      <div className="w-full flex-1 flex items-center gap-4 overflow-auto">
+        <Suspense fallback={<div>...Loading</div>}>
+          <Musics data={[...songs]} />
+        </Suspense>
+
+        <div className="flex-1 flex flex-col gap-2  h-full">
+          <Playlists data={playlists} />
+        </div>
+      </div>
     </div>
   );
 }

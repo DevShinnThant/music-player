@@ -9,17 +9,17 @@ import Image from "next/image";
 
 interface Props {
   item: SelectMusic;
-  activeIndex: number;
-  onPlayHandler: (index: number) => void;
+  active: boolean;
+  onPlayHandler: (id: number) => void;
 }
 
-export default function MusicItem({ item, activeIndex, onPlayHandler }: Props) {
+export default function MusicItem({ item, active, onPlayHandler }: Props) {
   return (
     <div
-      onClick={() => onPlayHandler(item.index)}
+      onClick={() => onPlayHandler(item.id)}
       className={cn(
         `w-full pr-6 rounded-md flex items-center justify-between cursor-pointer hover:bg-gray-700 hover:bg-opacity-20`,
-        activeIndex === item.index && "bg-gray-700 bg-opacity-20"
+        active && "bg-gray-700 bg-opacity-20"
       )}
     >
       <div className="flex gap-4 items-center">
@@ -35,11 +35,7 @@ export default function MusicItem({ item, activeIndex, onPlayHandler }: Props) {
           <div className="text-xs text-gray-400">{item.artist}</div>
         </div>
       </div>
-      {activeIndex === item.index ? (
-        <SoundWaveIcon />
-      ) : (
-        <Play color="gray" size={18} />
-      )}
+      {active ? <SoundWaveIcon /> : <Play color="gray" size={18} />}
     </div>
   );
 }

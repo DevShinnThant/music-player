@@ -12,7 +12,7 @@ import { formatDuration } from "@/lib/utils";
 
 interface Props {
   isPlaying: boolean;
-  onTogglePlay: () => void;
+
   currentTime: number;
   duration: number;
   onTrackChange: (value: number) => void;
@@ -22,13 +22,14 @@ interface Props {
   onRepeatedToggle: () => void;
   isShuffleMode: boolean;
   onShuffleToggle: () => void;
+  togglePlay: () => void;
 }
 
 export const ControlBar = forwardRef<HTMLAudioElement, Props>(
   (
     {
       isPlaying,
-      onTogglePlay,
+      togglePlay,
       currentTime,
       duration,
       onTrackChange,
@@ -60,7 +61,7 @@ export const ControlBar = forwardRef<HTMLAudioElement, Props>(
               color="#919693"
             />
 
-            <div onClick={onTogglePlay} className="cursor-pointer">
+            <div className="cursor-pointer" onClick={togglePlay}>
               {isPlaying ? (
                 <PauseCircle color="white" size={36} variant="Bulk" />
               ) : (

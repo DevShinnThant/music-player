@@ -10,7 +10,7 @@ export default function ParentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { currentMusicIndex } = useMusicStore();
+  const { currentMusicId } = useMusicStore();
 
   return (
     <div className="max-width overflow-auto h-screen flex items-center">
@@ -18,7 +18,7 @@ export default function ParentLayout({
       <div className="relative bg-main w-full h-full flex flex-col">
         <TopLayout />
         <div className="px-7 h-[calc(100vh_-_100px)]">{children}</div>
-        {currentMusicIndex !== null ? <Playbar /> : null}
+        {currentMusicId !== null ? <Playbar /> : null}
       </div>
     </div>
   );
