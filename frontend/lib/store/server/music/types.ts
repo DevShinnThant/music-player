@@ -5,7 +5,7 @@ export interface SelectMusicOptions {
 }
 
 export interface SelectMusic {
-  id: string;
+  id: number;
   index: number;
   name: string;
   artist: string;

@@ -7,7 +7,7 @@ export const musicSelector = (
   dataObj: z.infer<typeof musicApiResSchema>
 ): SelectMusic[] => {
   return dataObj.data.map((item, index) => ({
-    id: item.id.toString(),
+    id: item.id,
     index,
     name: item.attributes.name,
     artist: item.attributes.artist,
