@@ -6,7 +6,9 @@ export default function useMusic() {
   const { currentMusicId, musics, setCurrentMusic, isPlaying, togglePlay } =
     useMusicStore();
 
-  const currentMusic = musics.find((music) => music.id === currentMusicId);
+  const currentMusic = musics.find((music) => music.id === currentMusicId) || {
+    song: "",
+  };
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -82,6 +84,15 @@ export default function useMusic() {
     startTimer();
   }, [isRepeated]);
 
+  // useEffect(() => {
+  //   console.log(currentMusicId, "cmId");
+
+  //   if (!currentMusicId) {
+  //     alert("hit");
+  //     audioRef.current?.pause();
+  //   }
+  // }, [currentMusicId]);
+
   // Prevent Initial Call
   useEffect(() => {
     if (!previousShuffleMode && !isShuffleMode) {
@@ -140,7 +151,7 @@ export default function useMusic() {
   // Pause current song, Set new song and Play new song everytime song changes
 
   useEffect(() => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || !currentMusic) return;
 
     audioRef.current.pause();
 
@@ -154,7 +165,7 @@ export default function useMusic() {
     } else {
       isReady.current = true;
     }
-  }, [currentMusic?.id]);
+  }, [currentMusic.song]);
 
   return {
     audioRef,
