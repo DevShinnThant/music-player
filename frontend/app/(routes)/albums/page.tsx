@@ -1,7 +1,5 @@
 import { getAlbums } from "@/lib/store/server/album/get";
 
-import AlbumItem from "./(components)/AlbumItem";
-import { useMusicStore } from "@/lib/store/client/music";
 import AlbumSection from "./(components)/AlbumSection";
 
 export default async function Albums() {
