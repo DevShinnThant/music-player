@@ -1,4 +1,7 @@
-import ApiResponseValidator from "@/lib/types/ApiResponseValidator";
+import {
+  ApiReponseTypeArray,
+  ApiResponseValidator,
+} from "@/lib/types/ApiResponseValidator";
 import * as z from "zod";
 
 const musicDataSchema = z.object({
@@ -30,7 +33,6 @@ const musicDataSchema = z.object({
       }),
     }),
   }),
-
   image: z.object({
     data: z.object({
       id: z.number(),
@@ -85,6 +87,10 @@ const musicDataSchema = z.object({
   }),
 });
 
+const musicArrayDataSchema = ApiReponseTypeArray({
+  schema: musicDataSchema,
+});
+
 export const musicApiResSchema = ApiResponseValidator({
-  dataSchema: musicDataSchema,
+  dataSchema: musicArrayDataSchema,
 });

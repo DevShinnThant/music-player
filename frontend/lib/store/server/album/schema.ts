@@ -1,7 +1,11 @@
-import ApiResponseValidator from "@/lib/types/ApiResponseValidator";
+import {
+  ApiReponseTypeArray,
+  ApiReponseTypeObject,
+  ApiResponseValidator,
+} from "@/lib/types/ApiResponseValidator";
 import * as z from "zod";
 
-export const albumDataSchema = z.object({
+const albumDataSchema = z.object({
   name: z.string(),
   artist_name: z.string(),
   createdAt: z.string().datetime(),
@@ -133,6 +137,18 @@ export const albumDataSchema = z.object({
   }),
 });
 
-export const albumApiResSchema = ApiResponseValidator({
-  dataSchema: albumDataSchema,
+const albumArrayDataScheam = ApiReponseTypeArray({
+  schema: albumDataSchema,
+});
+
+const albumObjectDataSchema = ApiReponseTypeObject({
+  schema: albumDataSchema,
+});
+
+export const albumApiResArraySchema = ApiResponseValidator({
+  dataSchema: albumArrayDataScheam,
+});
+
+export const albumDetailApiResSchema = ApiResponseValidator({
+  dataSchema: albumObjectDataSchema,
 });

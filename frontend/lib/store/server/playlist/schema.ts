@@ -1,4 +1,7 @@
-import ApiResponseValidator from "@/lib/types/ApiResponseValidator";
+import {
+  ApiReponseTypeArray,
+  ApiResponseValidator,
+} from "@/lib/types/ApiResponseValidator";
 import * as z from "zod";
 
 const playlistDataSchema = z.object({
@@ -76,6 +79,10 @@ const playlistDataSchema = z.object({
   }),
 });
 
+const playlistArrayDataSchema = ApiReponseTypeArray({
+  schema: playlistDataSchema,
+});
+
 export const playlistApiResSchema = ApiResponseValidator({
-  dataSchema: playlistDataSchema,
+  dataSchema: playlistArrayDataSchema,
 });
