@@ -774,6 +774,7 @@ export interface ApiAlbumAlbum extends Schema.CollectionType {
     singularName: 'album';
     pluralName: 'albums';
     displayName: 'Album';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -787,6 +788,7 @@ export interface ApiAlbumAlbum extends Schema.CollectionType {
       'oneToMany',
       'api::music.music'
     >;
+    duration: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

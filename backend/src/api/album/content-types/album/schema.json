@@ -4,7 +4,8 @@
   "info": {
     "singularName": "album",
     "pluralName": "albums",
-    "displayName": "Album"
+    "displayName": "Album",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,19 +19,23 @@
       "type": "string"
     },
     "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "music": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::music.music"
+    },
+    "duration": {
+      "type": "float"
     }
   }
 }

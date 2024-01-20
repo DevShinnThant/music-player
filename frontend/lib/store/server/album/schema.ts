@@ -11,6 +11,7 @@ const albumDataSchema = z.object({
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
   publishedAt: z.string().datetime(),
+  duration: z.number(),
   music: z.object({
     data: z.array(
       z.object({
