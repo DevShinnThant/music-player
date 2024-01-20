@@ -5,5 +5,6 @@ export interface SelectAlbum {
   name: string;
   artist: string;
   cover: string;
+  duration: number;
   songs: SelectMusic[];
 }

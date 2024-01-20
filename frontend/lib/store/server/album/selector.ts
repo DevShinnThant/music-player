@@ -12,6 +12,7 @@ export const albumArraySelector = (
     cover:
       process.env.NEXT_PUBLIC_DATABASE_URL +
       item.attributes.cover.data.attributes.url,
+    duration: item.attributes.duration,
     songs: item.attributes.music.data.map((song, index) => ({
       id: song.id,
       index,
@@ -35,6 +36,7 @@ export const albumObjectSelector = (
     id: item.id,
     name: item.attributes.name,
     artist: item.attributes.artist_name,
+    duration: item.attributes.duration,
     cover:
       process.env.NEXT_PUBLIC_DATABASE_URL +
       item.attributes.cover.data.attributes.url,
