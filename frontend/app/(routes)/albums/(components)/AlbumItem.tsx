@@ -5,6 +5,8 @@ import { SelectAlbum } from "@/lib/store/server/album/types";
 import { cn } from "@/lib/utils";
 import { Pause, Play } from "iconsax-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   item: SelectAlbum;
@@ -21,10 +23,15 @@ export default function AlbumItem({ item, active }: Props) {
     currentAlbumId,
   } = useMusicStore();
 
+  const router = useRouter();
+
   return (
     <div
+      onClick={() => {
+        setCurrentAlbum(item.id);
+        router.push(`/albums/${item.id}`);
+      }}
       key={item.id}
-      onClick={() => {}}
       className="col-span-2 relative group flex flex-col items-start gap-4 p-4 rounded-lg h-56 bg-gray-600 bg-opacity-10 hover:bg-opacity-30 transition cursor-pointer"
     >
       <Image
@@ -41,6 +48,7 @@ export default function AlbumItem({ item, active }: Props) {
 
       <div
         onClick={(e) => {
+          e.stopPropagation();
           if (currentAlbumId !== item.id) {
             insertMusics(item.songs);
             setCurrentAlbum(item.id);
@@ -54,7 +62,7 @@ export default function AlbumItem({ item, active }: Props) {
           active && "opacity-100"
         )}
       >
-        {isPlaying ? (
+        {isPlaying && item.id == currentAlbumId ? (
           <Pause variant="Bold" size={16} color="white" />
         ) : (
           <Play variant="Bold" size={20} color="white" />
