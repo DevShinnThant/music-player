@@ -11,8 +11,6 @@ interface Props {
 export default function AlbumSection({ data }: Props) {
   const { currentAlbumId } = useMusicStore();
 
-  // console.log(isPlaying, "rerender & is Playing");
-
   return (
     <div className="grid grid-cols-12 gap-6">
       {data.map((album) => (
