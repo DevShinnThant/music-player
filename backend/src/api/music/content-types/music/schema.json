@@ -40,6 +40,12 @@
     },
     "artist": {
       "type": "string"
+    },
+    "duration": {
+      "type": "decimal"
+    },
+    "listeners": {
+      "type": "integer"
     }
   }
 }

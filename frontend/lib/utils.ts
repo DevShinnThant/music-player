@@ -29,3 +29,19 @@ export function formatTimeHMS(milliseconds: number) {
 
   return formattedResult;
 }
+
+export function formatTimeMS(milliseconds: number) {
+  // Convert milliseconds to seconds
+  let seconds = Math.floor(milliseconds / 1000);
+
+  // Calculate hours, minutes, and remaining seconds
+  let hours = Math.floor(seconds / 3600);
+  seconds %= 3600;
+  let minutes = Math.floor(seconds / 60);
+  seconds %= 60;
+
+  // Format the result
+  let formattedResult = `${minutes}:${seconds || "00"}`;
+
+  return formattedResult;
+}

@@ -11,8 +11,8 @@ export default async function Album({
   const data = await getAlbum(id);
 
   return (
-    <div className="w-full h-full flex flex-col gap-4 items-start overflow-hidden">
-      <div className="w-full rounded-t-md h-2/5  flex flex-col gap-5 items-start">
+    <div className="w-full h-full flex flex-col gap-8 items-start overflow-hidden">
+      <div className="w-full rounded-t-md h-2/5  flex flex-col gap-8 items-start">
         <AlbumCover data={data} />
         <Setting />
       </div>

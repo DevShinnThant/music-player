@@ -11,4 +11,6 @@ export interface SelectMusic {
   artist: string;
   image: string;
   song: string;
+  duration: number;
+  listeners: number;
 }

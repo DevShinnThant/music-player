@@ -10,6 +10,8 @@ const musicDataSchema = z.object({
   updatedAt: z.string().datetime(),
   publishedAt: z.string().datetime(),
   artist: z.string(),
+  duration: z.number(),
+  listeners: z.number(),
   file: z.object({
     data: z.object({
       id: z.number(),

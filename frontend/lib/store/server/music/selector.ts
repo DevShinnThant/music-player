@@ -17,5 +17,7 @@ export const musicSelector = (
     song:
       process.env.NEXT_PUBLIC_DATABASE_URL +
       item.attributes.file.data.attributes.url,
+    listeners: item.attributes.listeners,
+    duration: item.attributes.duration,
   }));
 };

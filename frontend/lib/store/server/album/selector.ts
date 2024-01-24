@@ -18,6 +18,8 @@ export const albumArraySelector = (
       index,
       name: song.attributes.name,
       artist: song.attributes.artist,
+      duration: song.attributes.duration,
+      listeners: song.attributes.listeners,
       image:
         process.env.NEXT_PUBLIC_DATABASE_URL +
         song.attributes.image.data.attributes.url,
@@ -51,6 +53,8 @@ export const albumObjectSelector = (
       song:
         process.env.NEXT_PUBLIC_DATABASE_URL +
         song.attributes.file.data.attributes.url,
+      listeners: song.attributes.listeners,
+      duration: song.attributes.duration,
     })),
   };
 };
