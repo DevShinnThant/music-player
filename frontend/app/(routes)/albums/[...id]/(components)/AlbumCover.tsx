@@ -2,6 +2,7 @@ import { SelectAlbum } from "@/lib/store/server/album/types";
 import { cn, formatTimeHMS } from "@/lib/utils";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import Image from "next/image";
+import NavigationSection from "./NavigationSection";
 
 interface Props {
   data: SelectAlbum;
@@ -19,14 +20,7 @@ export default function AlbumCover({ data }: Props) {
         coverColor
       )}
     >
-      <div className="absolute top-2 left-4 flex items-center gap-3">
-        <div className=" cursor-pointer w-7 h-7 rounded-full flex items-center justify-center bg-black bg-opacity-40">
-          <ArrowLeft2 color="white" size={17} />
-        </div>{" "}
-        <div className=" cursor-pointer w-7 h-7 rounded-full flex items-center justify-center bg-black bg-opacity-40">
-          <ArrowRight2 color="white" size={17} />
-        </div>
-      </div>
+      <NavigationSection />
       <div className="absolute bottom-2 rounded-md flex items-end gap-8">
         <Image
           width={140}
