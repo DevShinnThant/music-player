@@ -5,7 +5,6 @@ import { SelectAlbum } from "@/lib/store/server/album/types";
 import { cn } from "@/lib/utils";
 import { Pause, Play } from "iconsax-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface Props {

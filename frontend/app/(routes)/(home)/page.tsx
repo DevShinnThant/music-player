@@ -4,7 +4,6 @@ import Link from "next/link";
 import Musics from "./(components)/Musics";
 import { getMusics } from "@/lib/store/server/music/get";
 import { Suspense } from "react";
-import Image from "next/image";
 import { getPlaylists } from "@/lib/store/server/playlist/get";
 import Playlists from "./(components)/Playlists";
 

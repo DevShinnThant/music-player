@@ -1,6 +1,5 @@
 import { SelectAlbum } from "@/lib/store/server/album/types";
 import { cn, formatTimeHMS } from "@/lib/utils";
-import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import Image from "next/image";
 import NavigationSection from "./NavigationSection";
 
